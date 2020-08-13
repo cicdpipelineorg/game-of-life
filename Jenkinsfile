@@ -1,4 +1,4 @@
-def imagename = "sujith140/deploy:$BUILD_NUMBER"
+def imagename = "sujith140/gameoflife:$BUILD_NUMBER"
 def registryCredential = 'dockerhubfinal'
 def dockerImage = ''
 node('docker')
