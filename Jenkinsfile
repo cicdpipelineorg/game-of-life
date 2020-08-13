@@ -28,8 +28,8 @@ node('kubernetes')
 {
     stage('deploying to kubernetes')
 {
-    git url: 'https://github.com/cicdpipelineorg/game-of-life.git', branch: 'master'
-    sh 'envsubst < deploy.yaml | kubectl apply -f -' 
+    git url: 'https://github.com/sujith140/kubernetes.git', branch: 'master'
+    sh 'envsubst < gameoflife.yaml | kubectl apply -f -' 
 }
 
 }
