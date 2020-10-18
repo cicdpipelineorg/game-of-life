@@ -1,5 +1,5 @@
-def imagename = "sujith140/gameoflife:$BUILD_NUMBER"
-def registryCredential = 'dockerhubfinal'
+def imagename = "354309344841.dkr.ecr.us-east-1.amazonaws.com/sujith:$BUILD_NUMBER"
+def registryCredential = 'ecr:us-east-1:awsecr'
 def dockerImage = ''
 node('DOCKER')
 {
@@ -15,7 +15,7 @@ dockerImage = docker.build imagename
 
 stage('push image to repository')
 {
-docker.withRegistry( '', registryCredential ) {
+docker.withRegistry( 'https://354309344841.dkr.ecr.us-east-1.amazonaws.com', registryCredential ) {
 dockerImage.push()
 }
 }
@@ -24,12 +24,3 @@ stage('cleaning up')
 sh "docker rmi $imagename"
 }
 }
-node('KUBERNETES')
-{
-    stage('deploying to kubernetes')
-{
-    git url: 'https://github.com/cicdpipelineorg/game-of-life.git', branch: 'master'
-    sh 'envsubst < deploy.yaml | kubectl apply -f -' 
-}
-}
-
