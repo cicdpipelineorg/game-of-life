@@ -24,7 +24,7 @@ stage('cleaning up')
 sh "docker rmi $imagename"
 }
 }
-node('kubernetes')
+node('KUBERNETES')
 {
     stage('deploying to kubernetes')
 {
