@@ -1,7 +1,7 @@
 def imagename = "sujith140/gameoflife:$BUILD_NUMBER"
 def registryCredential = 'dockerhubfinal'
 def dockerImage = ''
-node('docker')
+node('DOCKER')
 {
 stage('git')
 {
@@ -24,12 +24,4 @@ stage('cleaning up')
 sh "docker rmi $imagename"
 }
 }
-node('kubernetes')
-{
-    stage('deploying to kubernetes')
-{
-    git url: 'https://github.com/sujith140/kubernetes.git', branch: 'master'
-    sh 'envsubst < gameoflife.yaml | kubectl apply -f -' 
-}
 
-}
