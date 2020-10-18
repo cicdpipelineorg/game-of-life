@@ -24,4 +24,12 @@ stage('cleaning up')
 sh "docker rmi $imagename"
 }
 }
+node('kubernetes')
+{
+    stage('deploying to kubernetes')
+{
+    git url: 'https://github.com/cicdpipelineorg/game-of-life.git', branch: 'master'
+    sh 'envsubst < deploy.yaml | kubectl apply -f -' 
+}
+}
 
